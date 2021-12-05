@@ -29,6 +29,7 @@ Item {
             key: "/2048/grid"
             defaultValue: ""
         }
+
         ConfigurationValue {
             id: gridScore
             key: "/2048/score"
@@ -48,6 +49,7 @@ Item {
                         return true
                 }
             }
+
             for (var x=0; x<rows-1; x++) {
                 for (var y=0; y<cols; y++) {
                     if (cells[x][y] == cells[x+1][y])
@@ -56,6 +58,7 @@ Item {
             }
             return false
         }
+
         function moveCell(x1, y1, x2, y2) {
             var cell1 = cells[x1][y1];
             var cell2 = cells[x2][y2];
@@ -193,7 +196,10 @@ Item {
             return true
         }
 
-
+        /**
+            Attempt to place a tile of a random value on a random free spot on the grid.
+            If there is no free spot or no move possible after placing the tile, the game will transition to a game over state.
+         */
         function randCell() {
             var emptyCells = []
             for (var x=0; x<rows; x++) {
@@ -228,6 +234,10 @@ Item {
             }
         }
 
+        /**
+            After the grid has moved it will be possible that some tiles are combined (2 and 2 will merge into 4).
+            This results in multiple tiles at the same location. The duplicates can be removed from the grid.
+         */
         function removeDuplicateGridCells() {
             for (var i=0;i<rows*cols;i++) {
                 if ((cellsGrid.itemAt(i).x1 == -1) || (cellsGrid.itemAt(i).y1 == -1)) continue
