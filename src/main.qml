@@ -20,8 +20,8 @@ import org.asteroid.controls 1.0
 
 Application {
     id: app
-    centerColor: "#b04d1c"
-    outerColor: "#421c0a"
+    centerColor: "#009933"
+    outerColor: "#000C00"
 
     Game {}
 }
