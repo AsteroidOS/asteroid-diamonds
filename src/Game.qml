@@ -569,7 +569,7 @@ Item {
             origin.x: width/2
             origin.y: height/2
             angle: gameOver.angle
-            Behavior on angle { NumberAnimation { easing.type: Easing.InCubic; duration: 600 } }
+            Behavior on angle { NumberAnimation { to: -405; easing.type: Easing.InCubic; duration: 600 } }
         }
 
         Behavior on opacity { NumberAnimation { duration: 200 } }
