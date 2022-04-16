@@ -279,6 +279,7 @@ Item {
             }
             randCell()
             randCell()
+            synchronize()
         }
 
         Timer {
