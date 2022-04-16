@@ -1,11 +1,11 @@
 import QtQuick 2.9
 import Nemo.Configuration 1.0
 import org.nemomobile.lipstick 0.1
+import org.asteroid.utils 1.0
 
 Item {
     id: main
     anchors.fill: parent
-    transform: Rotation { origin.x: width/2; origin.y: height/2; angle: 45}
 
     Item {
         id: logic
@@ -191,7 +191,6 @@ Item {
                 console.log("restore::Moving is no longer possbile! GAME OVER!!")
                 bestScore = Math.max(bestScore, score)
                 gameOver.visible = true
-                gameOver.angle = -90
             }
             return true
         }
@@ -230,7 +229,6 @@ Item {
                 console.log("randCell::Moving is no longer possbile! GAME OVER!!")
                 bestScore = Math.max(bestScore, score)
                 gameOver.visible = true
-                gameOver.angle = -90
             }
         }
 
@@ -263,7 +261,6 @@ Item {
             }
 
             gameOver.visible = false
-            gameOver.angle = 45
             for (var x=0; x<rows; x++) {
                 cells[x] = []
                 for (var y=0; y<cols; y++) {
@@ -292,288 +289,290 @@ Item {
                 logic.synchronize()
             }
         }
+
+        Component.onCompleted: {
+            logic.reset()
+        }
     }
 
     Item {
-        id: scoreBoard
+        id: gameView
         anchors.fill: parent
+        transform: Rotation { origin.x: width/2; origin.y: height/2; angle: 45}
 
-        opacity: 0.7
-
-        Behavior on opacity { NumberAnimation { duration: 200 } }
-        Rectangle {
-            transform: Rotation {origin.x: 0; origin.y: 0; angle: -90}
-            x: parent.width - height
-            y: parent.height*0.5 + width/2
-            width: parent.width*0.3
-            height: parent.height*0.12
-            radius: 3
-            color: "#af590b"
-
-            Text {
-                anchors.top: parent.top
-                anchors.topMargin: parent.height*0.1
-                width: parent.width
-                color: "#fff"
-                text: logic.score
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 20
-            }
-            Text {
-                anchors.top: parent.top
-                anchors.topMargin: parent.height*0.6
-                width: parent.width
-                color: "#eee4da"
-                //% "SCORE"
-                text: qsTrId("id-score")
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: 12
-            }
-        }
-
-        Rectangle {
-            x: parent.width*0.35
-            y: parent.height*0.88
-            width: parent.width*0.3
-            height: parent.height*0.12
-            radius: 3
-            color: "#af590b"
-
-            Text {
-                anchors.top: parent.top
-                anchors.topMargin: parent.height*0.1
-                width: parent.width
-                color: "#fff"
-                text: logic.bestScore
-                font.bold: true
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 20
-            }
-            Text {
-                anchors.top: parent.top
-                anchors.topMargin: parent.height*0.6
-                width: parent.width
-                color: "#eee4da"
-                //% "BEST"
-                text: qsTrId("id-best")
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: 12
-            }
-        }
-    }
-
-    Item {
-        id: board
-        property int fieldWidth: Math.floor(Math.sqrt(Math.pow(parent.width, 2)/2))
-        property int fieldHeight: Math.floor(Math.sqrt(Math.pow(parent.height, 2)/2))
-        property int fieldMarginWidth: (parent.width-fieldWidth)/2
-        property int fieldMarginHeight: (parent.height-fieldHeight)/2
-
-        anchors {
-            right: parent.right;
-            left: parent.left;
-            bottom: parent.bottom;
-            top: parent.top;
-            leftMargin: fieldMarginWidth;
-            rightMargin: fieldMarginWidth;
-            topMargin: fieldMarginHeight;
-            bottomMargin: fieldMarginHeight;
-        }
-
-        Grid {
-            id: grid
+        Item {
+            id: scoreBoard
             anchors.fill: parent
-            columns: 4
-            rows: 4
+
             opacity: 0.7
 
-            Repeater {
-                model: grid.columns * grid.rows
+            Behavior on opacity { NumberAnimation { duration: 200 } }
+            Rectangle {
+                transform: Rotation {origin.x: 0; origin.y: 0; angle: -90}
+                x: parent.width - height
+                y: parent.height*0.5 + width/2
+                width: parent.width*0.3
+                height: parent.height*0.12
+                radius: 3
+                color: "#af590b"
 
-                Item {
-                    width: grid.width/grid.columns
-                    height: grid.height/grid.rows
-
-                    Rectangle {
-                        radius: 3
-                        anchors.fill: parent
-                        color: "#60eee4da"
-                        anchors.leftMargin: 2.5
-                        anchors.rightMargin: 2.5
-                        anchors.topMargin: 2.5
-                        anchors.bottomMargin: 2.5
-                    }
+                Text {
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height*0.1
+                    width: parent.width
+                    color: "#fff"
+                    text: logic.score
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 20
+                }
+                Text {
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height*0.6
+                    width: parent.width
+                    color: "#eee4da"
+                    //% "SCORE"
+                    text: qsTrId("id-score")
+                    font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: 12
                 }
             }
-        }
-
-        Repeater {
-            id: cellsGrid
-            model: grid.columns * grid.rows
 
             Rectangle {
-                property bool animateMove: true
-                property int x1: -1
-                property int y1: -1
-                property int val: 0
-                property bool pop: false
-                property int prevScale: 0
-                id: cell
-                width: grid.width/grid.columns - 5
-                height: grid.height/grid.rows - 5
-                x: 2.5 + x1*(grid.width/grid.columns)
-                y: 2.5 + y1*(grid.height/grid.rows)
-                color: val == 2    ? "#eee4da" :
-                       val == 4    ? "#ede0c8" :
-                       val == 8    ? "#f2b179" :
-                       val == 16   ? "#f59563" :
-                       val == 32   ? "#f67c5f" :
-                       val == 64   ? "#f65e3b" :
-                       val == 128  ? "#edcf72" :
-                       val == 256  ? "#edcc61" :
-                       val == 512  ? "#edc850" :
-                       val == 1024 ? "#edc53f" :
-                                     "#edc22e" // 2048
-                scale: val ? (pop ? 1.1 : 1) : 0
+                x: parent.width*0.35
+                y: parent.height*0.88
+                width: parent.width*0.3
+                height: parent.height*0.12
                 radius: 3
-                visible: ((x1 != -1) && (y1 !=-1))
-                onScaleChanged: if (scale >= 1.1) pop = false
+                color: "#af590b"
 
-                Behavior on x { enabled: animateMove; NumberAnimation { duration: 100} }
-                Behavior on y { enabled: animateMove; NumberAnimation { duration: 100} }
-                Behavior on scale { NumberAnimation { duration: 100} }
-                Item {
-                    anchors.fill: parent
-                    transform: Rotation { origin.x: width/2; origin.y: height/2; angle: -45}
-                    property alias val: cell.val
-                    Text {
-                        height: parent.height
-                        width: parent.width
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: val <= 9    ? -1 :
-                                                      val <= 99   ? 5 :
-                                                      val <= 999  ? 9 :
-                                                                   14
-                        color: val <= 4 ? "#776e65" : "#f9f6f2"
-                        text: parent.val
-                        scale: parent.scale
-                        font.bold: true
-                        font.letterSpacing: val > 99 ? -parent.width * 0.004 :
-                                            0
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: val <= 9    ? height*0.7 :
-                                        val <= 99   ? height*0.6 :
-                                        val <= 999  ? height*0.5 :
-                                                    height*0.4
+                Text {
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height*0.1
+                    width: parent.width
+                    color: "#fff"
+                    text: logic.bestScore
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 20
+                }
+                Text {
+                    anchors.top: parent.top
+                    anchors.topMargin: parent.height*0.6
+                    width: parent.width
+                    color: "#eee4da"
+                    //% "BEST"
+                    text: qsTrId("id-best")
+                    font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: 12
+                }
+            }
+        }
+
+        Item {
+            id: board
+            property int fieldWidth: Math.floor(Math.sqrt(Math.pow(parent.width, 2)/2))
+            property int fieldHeight: Math.floor(Math.sqrt(Math.pow(parent.height, 2)/2))
+            property int fieldMarginWidth: (parent.width-fieldWidth)/2
+            property int fieldMarginHeight: (parent.height-fieldHeight)/2
+
+            anchors {
+                right: parent.right;
+                left: parent.left;
+                bottom: parent.bottom;
+                top: parent.top;
+                leftMargin: fieldMarginWidth;
+                rightMargin: fieldMarginWidth;
+                topMargin: fieldMarginHeight;
+                bottomMargin: fieldMarginHeight;
+            }
+
+            Grid {
+                id: grid
+                anchors.fill: parent
+                columns: 4
+                rows: 4
+                opacity: 0.7
+
+                Repeater {
+                    model: grid.columns * grid.rows
+
+                    Item {
+                        width: grid.width/grid.columns
+                        height: grid.height/grid.rows
+
+                        Rectangle {
+                            radius: 3
+                            anchors.fill: parent
+                            color: "#60eee4da"
+                            anchors.leftMargin: 2.5
+                            anchors.rightMargin: 2.5
+                            anchors.topMargin: 2.5
+                            anchors.bottomMargin: 2.5
+                        }
+                    }
+                }
+            }
+
+            Repeater {
+                id: cellsGrid
+                model: grid.columns * grid.rows
+
+                Rectangle {
+                    property bool animateMove: true
+                    property int x1: -1
+                    property int y1: -1
+                    property int val: 0
+                    property bool pop: false
+                    property int prevScale: 0
+                    id: cell
+                    width: grid.width/grid.columns - 5
+                    height: grid.height/grid.rows - 5
+                    x: 2.5 + x1*(grid.width/grid.columns)
+                    y: 2.5 + y1*(grid.height/grid.rows)
+                    color: val == 2    ? "#eee4da" :
+                        val == 4    ? "#ede0c8" :
+                        val == 8    ? "#f2b179" :
+                        val == 16   ? "#f59563" :
+                        val == 32   ? "#f67c5f" :
+                        val == 64   ? "#f65e3b" :
+                        val == 128  ? "#edcf72" :
+                        val == 256  ? "#edcc61" :
+                        val == 512  ? "#edc850" :
+                        val == 1024 ? "#edc53f" :
+                                        "#edc22e" // 2048
+                    scale: val ? (pop ? 1.1 : 1) : 0
+                    radius: 3
+                    visible: ((x1 != -1) && (y1 !=-1))
+                    onScaleChanged: if (scale >= 1.1) pop = false
+
+                    Behavior on x { enabled: animateMove; NumberAnimation { duration: 100} }
+                    Behavior on y { enabled: animateMove; NumberAnimation { duration: 100} }
+                    Behavior on scale { NumberAnimation { duration: 100} }
+                    Item {
+                        anchors.fill: parent
+                        transform: Rotation { origin.x: width/2; origin.y: height/2; angle: -45}
+                        property alias val: cell.val
+                        Text {
+                            height: parent.height
+                            width: parent.width
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenterOffset: val <= 9    ? -1 :
+                                                        val <= 99   ? 5 :
+                                                        val <= 999  ? 9 :
+                                                                    14
+                            color: val <= 4 ? "#776e65" : "#f9f6f2"
+                            text: parent.val
+                            scale: parent.scale
+                            font.bold: true
+                            font.letterSpacing: val > 99 ? -parent.width * 0.004 :
+                                                0
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: val <= 9    ? height*0.7 :
+                                            val <= 99   ? height*0.6 :
+                                            val <= 999  ? height*0.5 :
+                                                        height*0.4
+                        }
                     }
                 }
             }
         }
-    }
 
-    MouseArea {
-        width: board.width
-        height: board.height
-        anchors.centerIn: board
+        MouseArea {
+            width: board.width
+            height: board.height
+            anchors.centerIn: board
 
-        property bool swipeMode: true
+            property bool swipeMode: true
 
-        property int threshold: width*0.01
-        property string gesture: ""
-        property int value: 0
-        property bool horizontal: false
+            property int threshold: width*0.01
+            property string gesture: ""
+            property int value: 0
+            property bool horizontal: false
 
-        property int initialX: 0
-        property int initialY: 0
-        property int deltaX: 0
-        property int deltaY: 0
+            property int initialX: 0
+            property int initialY: 0
+            property int deltaX: 0
+            property int deltaY: 0
 
-        onPressed: {
-            gesture = ""
-            value = 0
-            initialX = 0
-            initialY = 0
-            deltaX = 0
-            deltaY = 0
-            initialX = mouse.x
-            initialY = mouse.y
+            onPressed: {
+                gesture = ""
+                value = 0
+                initialX = 0
+                initialY = 0
+                deltaX = 0
+                deltaY = 0
+                initialX = mouse.x
+                initialY = mouse.y
+            }
+
+            onPositionChanged: {
+                deltaX = mouse.x - initialX
+                deltaY = mouse.y - initialY
+                horizontal = Math.abs(deltaX) > Math.abs(deltaY)
+                if (horizontal) value = deltaX
+                else value = deltaY
+            }
+
+            onReleased: {
+                if (!swipeMode) {
+                    var centerY = initialY - board.height/2
+                    var centerX = initialX - board.width/2
+                    horizontal = Math.abs(centerX) > Math.abs(centerY)
+                    if (horizontal) value = centerX
+                    else value = centerY
+                }
+                if (value > threshold && horizontal) {
+                    gesture = "right"
+                } else if (value < -threshold && horizontal) {
+                    gesture = "left"
+                } else if (value > threshold) {
+                    gesture = "down"
+                } else if (value < -threshold) {
+                    gesture = "up"
+                } else {
+                    return
+                }
+                logic.move(gesture)
+            }
         }
 
-        onPositionChanged: {
-            deltaX = mouse.x - initialX
-            deltaY = mouse.y - initialY
-            horizontal = Math.abs(deltaX) > Math.abs(deltaY)
-            if (horizontal) value = deltaX
-            else value = deltaY
-        }
+        Rectangle {
+            property string gesture: ""
+            focus: true
 
-        onReleased: {
-            if (!swipeMode) {
-                var centerY = initialY - board.height/2
-                var centerX = initialX - board.width/2
-                horizontal = Math.abs(centerX) > Math.abs(centerY)
-                if (horizontal) value = centerX
-                else value = centerY
+            Keys.onPressed: {
+                event.accepted = true
+                if (event.key == Qt.Key_Right) {
+                    gesture = "right"
+                } else if (event.key == Qt.Key_Left) {
+                    gesture = "left"
+                } else if (event.key == Qt.Key_Down) {
+                    gesture = "down"
+                } else if (event.key == Qt.Key_Up) {
+                    gesture = "up"
+                } else {
+                    return
+                }
+                logic.move(gesture)
             }
-            if (value > threshold && horizontal) {
-                gesture = "right"
-            } else if (value < -threshold && horizontal) {
-                gesture = "left"
-            } else if (value > threshold) {
-                gesture = "down"
-            } else if (value < -threshold) {
-                gesture = "up"
-            } else {
-                return
-            }
-            logic.move(gesture)
-        }
-    }
-
-    Rectangle {
-        property string gesture: ""
-        focus: true
-
-        Keys.onPressed: {
-            event.accepted = true
-            if (event.key == Qt.Key_Right) {
-                gesture = "right"
-            } else if (event.key == Qt.Key_Left) {
-                gesture = "left"
-            } else if (event.key == Qt.Key_Down) {
-                gesture = "down"
-            } else if (event.key == Qt.Key_Up) {
-                gesture = "up"
-            } else {
-                return
-            }
-            logic.move(gesture)
         }
     }
 
     Rectangle {
         id: gameOver
         anchors.fill: parent
+        radius: DeviceInfo.hasRoundScreen ? width/2 : 0
         visible: false
         opacity: visible ? 0.8 : 0.0
-
-        property int angle: 45
-
-        transform: Rotation {
-            origin.x: width/2
-            origin.y: height/2
-            angle: gameOver.angle
-            Behavior on angle { NumberAnimation { easing.type: Easing.InCubic; duration: 600 } }
-        }
-
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        scale: visible ? 1 : 0
+        Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.InCurve } }
         Text {
             anchors.top: parent.top
             width: parent.width
@@ -612,9 +611,5 @@ Item {
                 onClicked: logic.reset()
             }
         }
-    }
-
-    Component.onCompleted: {
-        logic.reset()
     }
 }
