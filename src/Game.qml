@@ -74,6 +74,7 @@ Item {
                 for (var i=0;i<logic.rows*logic.cols;i++) {
                     if ((cellsGrid.itemAt(i).x1 == -1) || (cellsGrid.itemAt(i).y1 == -1)) continue
                     if ((cellsGrid.itemAt(i).x1 == x1) && (cellsGrid.itemAt(i).y1 == y1)) {
+                        cellsGrid.itemAt(i).animateMove = true
                         cellsGrid.itemAt(i).x1 = x2
                         cellsGrid.itemAt(i).y1 = y2
                         animationTimer.start()
@@ -176,11 +177,9 @@ Item {
                         var emptyGrid = emptyGridCells[0]
                         emptyGridCells.shift()
 
-                        cellsGrid.itemAt(emptyGrid).animateMove = false
                         cellsGrid.itemAt(emptyGrid).val = cells[x][y]
                         cellsGrid.itemAt(emptyGrid).x1 = x
                         cellsGrid.itemAt(emptyGrid).y1 = y
-                        cellsGrid.itemAt(emptyGrid).animateMove = true
                     } else {
                         emptyCells ++
                     }
@@ -223,7 +222,6 @@ Item {
             cellsGrid.itemAt(emptyGrid).val = cells[x][y]
             cellsGrid.itemAt(emptyGrid).x1 = x
             cellsGrid.itemAt(emptyGrid).y1 = y
-            cellsGrid.itemAt(emptyGrid).animateMove = true
 
             if ((emptyCells.length<=1) && !movePossible()) {
                 console.log("randCell::Moving is no longer possbile! GAME OVER!!")
@@ -425,7 +423,7 @@ Item {
                 model: grid.columns * grid.rows
 
                 Rectangle {
-                    property bool animateMove: true
+                    property bool animateMove: false
                     property int x1: -1
                     property int y1: -1
                     property int val: 0
