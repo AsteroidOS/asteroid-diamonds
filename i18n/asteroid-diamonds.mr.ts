@@ -6,27 +6,27 @@
     <message id="id-score">
         <location filename="../src/Game.qml" line="319"/>
         <source>SCORE</source>
-        <translation type="unfinished"></translation>
+        <translation>स्कोअर</translation>
     </message>
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
         <source>BEST</source>
-        <translation type="unfinished"></translation>
+        <translation>सर्वोत्तम</translation>
     </message>
     <message id="id-game-over">
         <location filename="../src/Game.qml" line="572"/>
         <source>Game Over</source>
-        <translation type="unfinished"></translation>
+        <translation>खेळ संपला</translation>
     </message>
     <message id="id-try-again">
         <location filename="../src/Game.qml" line="591"/>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation>पुन्हा प्रयत्न करा</translation>
     </message>
     <message id="id-app-launcher-name">
         <location filename="asteroid-diamonds.desktop.h" line="6"/>
         <source>Diamonds</source>
-        <translation type="unfinished"></translation>
+        <translation>हिरे</translation>
     </message>
 </context>
 </TS>
