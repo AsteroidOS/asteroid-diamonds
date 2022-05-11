@@ -2,6 +2,7 @@ import QtQuick 2.9
 import Nemo.Configuration 1.0
 import org.nemomobile.lipstick 0.1
 import org.asteroid.utils 1.0
+import org.asteroid.controls 1.0
 
 Item {
     id: main
@@ -300,7 +301,9 @@ Item {
 
         Item {
             id: scoreBoard
-            anchors.fill: parent
+            width: Dims.l(100)
+            height: Dims.l(100)
+            anchors.centerIn: parent
 
             opacity: 0.7
 
@@ -375,21 +378,12 @@ Item {
 
         Item {
             id: board
-            property int fieldWidth: Math.floor(Math.sqrt(Math.pow(parent.width, 2)/2))
-            property int fieldHeight: Math.floor(Math.sqrt(Math.pow(parent.height, 2)/2))
-            property int fieldMarginWidth: (parent.width-fieldWidth)/2
-            property int fieldMarginHeight: (parent.height-fieldHeight)/2
+            // As the field is rotated by 45°, make sure that the diagonal of the field matches the minimum length.
+            property int fieldSize: Math.floor(Math.sqrt(Math.pow(Dims.l(100), 2)/2))
 
-            anchors {
-                right: parent.right;
-                left: parent.left;
-                bottom: parent.bottom;
-                top: parent.top;
-                leftMargin: fieldMarginWidth;
-                rightMargin: fieldMarginWidth;
-                topMargin: fieldMarginHeight;
-                bottomMargin: fieldMarginHeight;
-            }
+            width: fieldSize
+            height: fieldSize
+            anchors.centerIn: parent
 
             Grid {
                 id: grid
