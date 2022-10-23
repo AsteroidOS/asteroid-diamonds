@@ -298,6 +298,8 @@ Item {
         id: gameView
         anchors.fill: parent
         transform: Rotation { origin.x: width/2; origin.y: height/2; angle: 45}
+        opacity: gameOver.visible ? 0.8 : 1
+        Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InCurve } }
 
         Item {
             id: scoreBoard
@@ -564,43 +566,45 @@ Item {
         visible: false
         opacity: visible ? 0.8 : 0.0
         scale: visible ? 1 : 0
+        color: "#000000"
         Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.InCurve } }
-        Text {
+        Label {
             anchors.top: parent.top
             width: parent.width
-            height: parent.height*0.7
-            color: "#776e65"
+            height: parent.height*0.8
             //% "Game Over"
             text: qsTrId("id-game-over")
             font.bold: true
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            font.pixelSize: parent.height/text.length
+            font.pixelSize: Dims.l(10)
         }
-        Rectangle {
-            color: "#8f7a66"
-            x: parent.width*0.3
-            y: parent.height*0.5
-            width: parent.width*0.4
-            height: parent.height*0.15
-
-            Text {
-                anchors.top: parent.top
-                width: parent.width
-                height: parent.height
-                color: "#f9f6f2"
+        MouseArea {
+            TextMetrics {
+                id: tryAgainTextMetrics
+                font.pixelSize: Dims.l(8)
                 //% "Try Again"
                 text: qsTrId("id-try-again")
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: parent.height*0.4
             }
-            MouseArea {
-                width: parent.width
-                height: parent.height
+
+            y: parent.height*0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: tryAgainTextMetrics.height + Dims.w(12)
+            width: tryAgainTextMetrics.width + Dims.h(16)
+
+            onClicked: logic.reset()
+
+            Rectangle {
+                anchors.fill: parent
+                radius: height/2
+                color: parent.pressed ? "#99111111" : "#BB111111"
+            }
+
+            Label {
+                id: tryAgainText
                 anchors.centerIn: parent
-                onClicked: logic.reset()
+                font: tryAgainTextMetrics.font
+                text: tryAgainTextMetrics.text
             }
         }
     }
