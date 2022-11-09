@@ -6,7 +6,7 @@
     <message id="id-score">
         <location filename="../src/Game.qml" line="319"/>
         <source>SCORE</source>
-        <translation type="unfinished"></translation>
+        <translation>PUNTUACIÓN</translation>
     </message>
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
