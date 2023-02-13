@@ -561,7 +561,8 @@ Item {
 
     Rectangle {
         id: gameOver
-        anchors.fill: parent
+        height: Dims.h(100)
+        width: Dims.w(100)
         radius: DeviceInfo.hasRoundScreen ? width/2 : 0
         visible: false
         opacity: visible ? 0.8 : 0.0
