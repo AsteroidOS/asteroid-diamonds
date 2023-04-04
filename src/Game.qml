@@ -392,7 +392,7 @@ Item {
                 anchors.fill: parent
                 columns: 4
                 rows: 4
-                opacity: 0.7
+                opacity: 0.3
 
                 Repeater {
                     model: grid.columns * grid.rows
@@ -430,8 +430,8 @@ Item {
                     height: grid.height/grid.rows - 5
                     x: 2.5 + x1*(grid.width/grid.columns)
                     y: 2.5 + y1*(grid.height/grid.rows)
-                    color: val == 2    ? "#9eadae" :
-                        val == 4    ? "#809899" :
+                    color: val == 2    ? "#999eadae" :
+                        val == 4    ? "#99718c8e" :
                         val == 8    ? "#e4b301" :
                         val == 16   ? "#e9981f" :
                         val == 32   ? "#e9771f" :
