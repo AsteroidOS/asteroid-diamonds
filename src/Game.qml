@@ -392,7 +392,7 @@ Item {
                 anchors.fill: parent
                 columns: 4
                 rows: 4
-                opacity: 0.7
+                opacity: 0.3
 
                 Repeater {
                     model: grid.columns * grid.rows
@@ -430,17 +430,18 @@ Item {
                     height: grid.height/grid.rows - 5
                     x: 2.5 + x1*(grid.width/grid.columns)
                     y: 2.5 + y1*(grid.height/grid.rows)
-                    color: val == 2    ? "#eee4da" :
-                        val == 4    ? "#ede0c8" :
-                        val == 8    ? "#f2b179" :
-                        val == 16   ? "#f59563" :
-                        val == 32   ? "#f67c5f" :
-                        val == 64   ? "#f65e3b" :
-                        val == 128  ? "#edcf72" :
-                        val == 256  ? "#edcc61" :
-                        val == 512  ? "#edc850" :
-                        val == 1024 ? "#edc53f" :
-                                        "#edc22e" // 2048
+                    color: val == 2    ? "#999eadae" :
+                        val == 4    ? "#99718c8e" :
+                        val == 8    ? "#e4b301" :
+                        val == 16   ? "#e9981f" :
+                        val == 32   ? "#e9771f" :
+                        val == 64   ? "#e95c1f" :
+                        val == 128  ? "#0091bd" :
+                        val == 256  ? "#0071bd" :
+                        val == 512  ? "#0052bd" :
+                        val == 1024 ? "#a300bd" :
+                        val == 2048 ? "#db007e" :
+                                      "#cc0023" // 4096
                     scale: val ? (pop ? 1.1 : 1) : 0
                     radius: 3
                     visible: ((x1 != -1) && (y1 !=-1))
@@ -461,7 +462,7 @@ Item {
                                                         val <= 99   ? 5 :
                                                         val <= 999  ? 9 :
                                                                     14
-                            color: val <= 4 ? "#776e65" : "#f9f6f2"
+                            color: "#f9f6f2"
                             text: parent.val
                             scale: parent.scale
                             font.bold: true
