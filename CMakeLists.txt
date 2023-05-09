@@ -17,6 +17,13 @@ include(AsteroidTranslations)
 
 add_subdirectory(src)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/asteroid-diamonds.in
+	${CMAKE_BINARY_DIR}/asteroid-diamonds
+	@ONLY)
+
+install(PROGRAMS ${CMAKE_BINARY_DIR}/asteroid-diamonds
+	DESTINATION ${CMAKE_INSTALL_BINDIR})
+
 build_translations(i18n)
 generate_desktop(${CMAKE_SOURCE_DIR} asteroid-diamonds)
 
