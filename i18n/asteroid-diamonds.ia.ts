@@ -6,7 +6,7 @@
     <message id="id-score">
         <location filename="../src/Game.qml" line="319"/>
         <source>SCORE</source>
-        <translation type="unfinished"></translation>
+        <translation>PUNCTOS</translation>
     </message>
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
@@ -16,7 +16,7 @@
     <message id="id-game-over">
         <location filename="../src/Game.qml" line="572"/>
         <source>Game Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Fin de joco</translation>
     </message>
     <message id="id-try-again">
         <location filename="../src/Game.qml" line="591"/>
