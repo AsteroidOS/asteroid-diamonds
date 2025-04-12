@@ -564,7 +564,7 @@ Item {
         id: gameOver
         height: Dims.h(100)
         width: Dims.w(100)
-        radius: DeviceInfo.hasRoundScreen ? width/2 : 0
+        radius: DeviceSpecs.hasRoundScreen ? width/2 : 0
         visible: false
         opacity: visible ? 0.8 : 0.0
         scale: visible ? 1 : 0
