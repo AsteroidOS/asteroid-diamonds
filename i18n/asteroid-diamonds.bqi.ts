@@ -11,12 +11,12 @@
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
         <source>BEST</source>
-        <translation type="unfinished"></translation>
+        <translation>برترین</translation>
     </message>
     <message id="id-game-over">
         <location filename="../src/Game.qml" line="572"/>
         <source>Game Over</source>
-        <translation type="unfinished"></translation>
+        <translation>دیندا بازی</translation>
     </message>
     <message id="id-try-again">
         <location filename="../src/Game.qml" line="591"/>
