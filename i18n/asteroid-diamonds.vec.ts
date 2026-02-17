@@ -11,22 +11,22 @@
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
         <source>BEST</source>
-        <translation type="unfinished"></translation>
+        <translation>MEJO</translation>
     </message>
     <message id="id-game-over">
         <location filename="../src/Game.qml" line="572"/>
         <source>Game Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenìo el Zogo</translation>
     </message>
     <message id="id-try-again">
         <location filename="../src/Game.qml" line="591"/>
         <source>Try Again</source>
-        <translation type="unfinished"></translation>
+        <translation>Proar Danovo</translation>
     </message>
     <message id="id-app-launcher-name">
         <location filename="asteroid-diamonds.desktop.h" line="6"/>
         <source>Diamonds</source>
-        <translation type="unfinished"></translation>
+        <translation>Briłanti</translation>
     </message>
 </context>
 </TS>
