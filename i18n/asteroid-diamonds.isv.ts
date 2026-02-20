@@ -11,7 +11,7 @@
     <message id="id-best">
         <location filename="../src/Game.qml" line="352"/>
         <source>BEST</source>
-        <translation>Najlěpšy</translation>
+        <translation>NAJLĚPŠI</translation>
     </message>
     <message id="id-game-over">
         <location filename="../src/Game.qml" line="572"/>
