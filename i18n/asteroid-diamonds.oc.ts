@@ -26,7 +26,7 @@
     <message id="id-app-launcher-name">
         <location filename="asteroid-diamonds.desktop.h" line="6"/>
         <source>Diamonds</source>
-        <translation type="unfinished"></translation>
+        <translation>Diamants</translation>
     </message>
 </context>
 </TS>
