@@ -1,8 +1,7 @@
-import QtQuick 2.9
-import Nemo.Configuration 1.0
-import org.nemomobile.lipstick 0.1
-import org.asteroid.utils 1.0
-import org.asteroid.controls 1.0
+import QtQuick
+import Nemo.Configuration
+import org.asteroid.utils
+import org.asteroid.controls
 
 Item {
     id: main
