@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.6.0)
 
-project(asteroid-diamonds
-	VERSION 0.0.1
-	DESCRIPTION "A 2048 inspired game for AsteroidOS")
+project(
+	asteroid-diamonds
+	VERSION 2.0
+	DESCRIPTION "A 2048 inspired game for AsteroidOS"
+)
 
 find_package(ECM REQUIRED NO_MODULE)
 find_package(AsteroidApp REQUIRED)
