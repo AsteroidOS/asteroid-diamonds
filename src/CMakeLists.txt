@@ -4,7 +4,7 @@ set_target_properties(asteroid-diamonds PROPERTIES PREFIX "")
 target_link_libraries(
 	asteroid-diamonds
 	PUBLIC
-		Asteroid::AsteroidApp
+		Asteroid::AsteroidApp6
 )
 
 install(
