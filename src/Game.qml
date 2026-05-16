@@ -495,7 +495,7 @@ Item {
             property int deltaX: 0
             property int deltaY: 0
 
-            onPressed: {
+            onPressed: (mouse) => {
                 gesture = ""
                 value = 0
                 initialX = 0
@@ -506,7 +506,7 @@ Item {
                 initialY = mouse.y
             }
 
-            onPositionChanged: {
+            onPositionChanged: (mouse) => {
                 deltaX = mouse.x - initialX
                 deltaY = mouse.y - initialY
                 horizontal = Math.abs(deltaX) > Math.abs(deltaY)
